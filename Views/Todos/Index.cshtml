@@ -1,0 +1,147 @@
+﻿@model CKS_DevloperTask.ViewModels.ToDoViewModelsList  
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+
+}
+
+<h5>ListofToDo</h5>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+
+            </div>
+            <div class="col-md-4 datatable-buttons">
+                <button class="btn btn-primary fa-pull-right" data-toggle="modal" data-target="#CreateModel" aria-labelledby="CreateModelLabel" aria-hidden="false"><i class="fa fa-plus"></i> Add a New Task</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">ToDos</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SNO</th>
+                                    <th>DueDate</th>
+                                    <th>TaskName</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.List)
+                                {
+                                    <tr>
+
+                                        <td>@item.Priority </td>
+                                        <td>@item.DueDate </td>
+                                        <td>@item.TaskName </td>
+                                        <td>@item.Notes  </td>
+
+                                        @if (item.IsActive == true)
+                                        {
+                                            <td align="left"><span class="badge badge-danger">InComplete</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td align="left"><span class="badge badge-success">Completed</span></td>
+                                        }
+                                        <td>
+                                            <a href="/Todos/Edit?Id=@item.Id " class="btn btn-primary btn-sm">
+                                                <span class="fas fa-edit">Edit</span>
+                                            </a>
+                                            ||
+                                            <a href="/Todos/Mark?Id=@item.Id " class="btn btn-danger btn-sm">
+                                                <span class="fas fa-marker">Mark</span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create New Model-->
+    <div class="modal fade" id="CreateModel" role="dialog" aria-labelledby="createnewlabel">
+        <div class="modal-body" role="document">
+            <div class="modal-content">
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                ADD NEW TASK
+                            </div>
+                            <div class="card-body">
+                                <div class="modal-body">
+                                    <form asp-action="Create" asp-controller="Todos">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label asp-for="TaskName" class="lable-Control"></label>
+                                                <input type="text" placeholder="Enter Your TaskName" class="form-control" name="TaskName" asp-for="TaskName" />
+                                            </div>
+
+                                            <div class="col-md-4 form-group">
+                                                <label>Due Date:</label>
+                                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                                    <input type="text" class="form-control datetimepicker-input" asp-for="DueDate" data-target="#reservationdate" />
+                                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 form-group">
+                                                <label asp-for="Priority" class="lable-Control">Priority</label>
+                                                <input type="number" class="form-control" name="Priority" asp-for="Priority" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label asp-for="Notes" class="lable-Control"></label>
+                                                <textarea cols="66" rows="5" class="form-control" name="Notes" asp-for="Notes">
+                           </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <input type="checkbox" class="form-check-input" name="IsRemind" asp-for="IsRemind" /> RemindMe
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 form-group">
+                                                <input type="submit" class="pull-right btn btn-primary" value="Submit" />
+                                                <a href="~/Todos/Index" class="btn btn-link text-capitalize pull-right"><i class="glyphicon glyphicon-arrow-left"></i> Go Back To List</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!--Edit Flow-->
+    
+</section>
+
+
